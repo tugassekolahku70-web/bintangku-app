@@ -1,0 +1,575 @@
+// Initial mock data matching the UI mockups in D:\Proyekku\Pempek - Kohar\SMP
+
+export const INITIAL_SETTINGS = {
+  schoolName: 'SDIT Bintang Cemerlang',
+  schoolAddress: 'Jl. Melati No. 12, Kebayoran Baru, Jakarta Selatan',
+  teacherName: 'Ustadzah Desiana S.Pd.I',
+  teacherTitle: 'Wali Kelas 1A & 2A',
+  teacherEmail: 'desiana@bintangku.id',
+  teacherPin: '1234',
+  teacherAvatar: '🧕🏻',
+  teacherPhotoUrl: '',
+  aboutText: 'Platform pembiasaan karakter & ibadah islami terpadu untuk membentuk generasi anak yang shalih, mandiri, dan berakhlakul karimah melalui pendekatan apresiasi positif dan penuh cinta.',
+  aboutVision: 'Membantu orang tua dan pendidik memantau serta menyemangati pembiasaan ibadah harian ananda dengan riang gembira.',
+  contactWhatsApp: '+62 812-3456-7890',
+  contactPhone: '(021) 7890-1234',
+  contactEmail: 'salam@bintangku.id',
+  contactAddress: 'Gedung Graha Bintang Cemerlang, Lt. 2, Jl. Pendidikan No. 45, Jakarta Selatan'
+};
+
+export const INITIAL_CLASSES = [
+  { id: 'c-1a', name: 'Kelas 1A', schoolName: 'SDIT Bintang Cemerlang', teacherName: 'Ustadzah Desiana S.Pd.I', academicYear: '2024/2025' },
+  { id: 'c-2a', name: 'Kelas 2A', schoolName: 'SDIT Bintang Cemerlang', teacherName: 'Ustadzah Desiana S.Pd.I', academicYear: '2024/2025' },
+  { id: 'c-2b', name: 'Kelas 2B', schoolName: 'SDIT Bintang Cemerlang', teacherName: 'Ustadzah Fatimah', academicYear: '2024/2025' },
+  { id: 'c-3a', name: 'Kelas 3A', schoolName: 'SDIT Bintang Cemerlang', teacherName: 'Ustadz Abdullah', academicYear: '2024/2025' }
+];
+
+// Pre-seeded second teacher dataset to verify strict multi-tenant isolation
+export const AHMAD_SETTINGS = {
+  schoolName: 'SMP IT Nurul Fikri',
+  schoolAddress: 'Jl. R.A. Kartini No. 88, Cilandak, Jakarta Selatan',
+  teacherName: 'Ustadz Ahmad Fauzi, M.Pd.',
+  teacherTitle: 'Wali Kelas 7A & 7B',
+  teacherEmail: 'ahmad@bintangku.id',
+  teacherPin: '1234',
+  teacherAvatar: '🧔🏻',
+  teacherPhotoUrl: '',
+  aboutText: 'Membimbing santri tingkat menengah untuk mengokohkan akidah, kedisiplinan ibadah mandiri, serta akhlakul karimah.',
+  aboutVision: 'Mencetak generasi santri cerdas berakhlak mulia dan berwawasan luas.',
+  contactWhatsApp: '+62 813-8899-7711',
+  contactPhone: '(021) 7654-3210',
+  contactEmail: 'ahmad@bintangku.id',
+  contactAddress: 'Kampus SMP IT Nurul Fikri, Jl. R.A. Kartini No. 88, Jakarta Selatan'
+};
+
+export const AHMAD_CLASSES = [
+  { id: 'c-7a', name: 'Kelas 7A (Tahfidz)', schoolName: 'SMP IT Nurul Fikri', teacherName: 'Ustadz Ahmad Fauzi, M.Pd.', academicYear: '2024/2025' },
+  { id: 'c-7b', name: 'Kelas 7B (Sains)', schoolName: 'SMP IT Nurul Fikri', teacherName: 'Ustadz Ahmad Fauzi, M.Pd.', academicYear: '2024/2025' }
+];
+
+export const AHMAD_STUDENTS = [
+  {
+    id: 's-salman',
+    no: 1,
+    name: 'Salman Al-Farisi',
+    nisn: '009101',
+    pin: '1234',
+    avatar: '👦🏽',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-7a',
+    className: 'Kelas 7A (Tahfidz)',
+    consistency: 95,
+    longestStreak: 14,
+    currentStreak: 14,
+    totalStars: 350,
+    habitStars: 350,
+    teacherBonusStars: 0,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Hafalan juz 29 dan 30 sangat mutqin.'
+  },
+  {
+    id: 's-zaid',
+    no: 2,
+    name: 'Zaid bin Tsabit',
+    nisn: '009102',
+    pin: '1234',
+    avatar: '👦🏻',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-7a',
+    className: 'Kelas 7A (Tahfidz)',
+    consistency: 90,
+    longestStreak: 10,
+    currentStreak: 10,
+    totalStars: 280,
+    habitStars: 280,
+    teacherBonusStars: 0,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Khatam Al-Quran rutin setiap bulan.'
+  },
+  {
+    id: 's-ruqayyah',
+    no: 3,
+    name: 'Ruqayyah Wardani',
+    nisn: '009103',
+    pin: '1234',
+    avatar: '🧕🏻',
+    photoUrl: '',
+    gender: 'female',
+    classId: 'c-7b',
+    className: 'Kelas 7B (Sains)',
+    consistency: 92,
+    longestStreak: 12,
+    currentStreak: 12,
+    totalStars: 310,
+    habitStars: 310,
+    teacherBonusStars: 0,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Juara olimpiade sains dan tertib sholat dhuha.'
+  },
+  {
+    id: 's-zubair',
+    no: 4,
+    name: 'Zubair bin Awwam',
+    nisn: '009104',
+    pin: '1234',
+    avatar: '👦🏽',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-7a',
+    className: 'Kelas 7A (Tahfidz)',
+    consistency: 75,
+    longestStreak: 6,
+    currentStreak: 6,
+    totalStars: 190,
+    habitStars: 190,
+    teacherBonusStars: 0,
+    status: 'Cukup Konsisten',
+    statusType: 'warning',
+    notes: 'Perlu bimbingan sholat tahajjud teratur.'
+  },
+  {
+    id: 's-maryam',
+    no: 5,
+    name: 'Maryam Al-Khattab',
+    nisn: '009105',
+    pin: '1234',
+    avatar: '🧕🏼',
+    photoUrl: '',
+    gender: 'female',
+    classId: 'c-7b',
+    className: 'Kelas 7B (Sains)',
+    consistency: 88,
+    longestStreak: 9,
+    currentStreak: 9,
+    totalStars: 260,
+    habitStars: 260,
+    teacherBonusStars: 0,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Aktif dalam kegiatan sosial dan sedekah jumat.'
+  },
+  {
+    id: 's-hamzah',
+    no: 6,
+    name: 'Hamzah Asadullah',
+    nisn: '009106',
+    pin: '1234',
+    avatar: '👦🏻',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-7b',
+    className: 'Kelas 7B (Sains)',
+    consistency: 60,
+    longestStreak: 5,
+    currentStreak: 5,
+    totalStars: 175,
+    habitStars: 175,
+    teacherBonusStars: 0,
+    status: 'Cukup Konsisten',
+    statusType: 'warning',
+    notes: 'Perlu pendampingan untuk sholat fardhu berjamaah.'
+  },
+  {
+    id: 's-usamah',
+    no: 7,
+    name: 'Usamah bin Zaid',
+    nisn: '009107',
+    pin: '1234',
+    avatar: '👦🏽',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-7a',
+    className: 'Kelas 7A (Tahfidz)',
+    consistency: 80,
+    longestStreak: 7,
+    currentStreak: 7,
+    totalStars: 215,
+    habitStars: 215,
+    teacherBonusStars: 0,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Disiplin dan gemar membantu ustadz serta teman-teman.'
+  }
+];
+
+export const INITIAL_STUDENTS = [
+  {
+    id: 's-arman',
+    no: 1,
+    name: 'Adek Arman',
+    nisn: '008920',
+    pin: '1234',
+    avatar: '👦🏻',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-2a',
+    className: 'Kelas 2A',
+    consistency: 100,
+    longestStreak: 7,
+    currentStreak: 7,
+    totalStars: 320,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Sangat rajin dan antusias sholat berjamaah di masjid.'
+  },
+  {
+    id: 's1',
+    no: 2,
+    name: 'Ahmad Zaki',
+    nisn: '008921',
+    pin: '1234',
+    avatar: '👦🏻',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-2a',
+    className: 'Kelas 2A',
+    consistency: 100,
+    longestStreak: 12,
+    currentStreak: 12,
+    totalStars: 240,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Sangat tertib sholat 5 waktu berjamaah di masjid.'
+  },
+  {
+    id: 's2',
+    no: 3,
+    name: 'Aisyah Humaira',
+    nisn: '008922',
+    pin: '1234',
+    avatar: '🧕🏻',
+    photoUrl: '',
+    gender: 'female',
+    classId: 'c-2a',
+    className: 'Kelas 2A',
+    consistency: 85,
+    longestStreak: 8,
+    currentStreak: 8,
+    totalStars: 210,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Rajin mengaji surah pendek setiap ba\'da maghrib.'
+  },
+  {
+    id: 's3',
+    no: 4,
+    name: 'Muhammad Fathan',
+    nisn: '008923',
+    pin: '1234',
+    avatar: '👦🏽',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-2a',
+    className: 'Kelas 2A',
+    consistency: 70,
+    longestStreak: 5,
+    currentStreak: 5,
+    totalStars: 160,
+    status: 'Cukup Konsisten',
+    statusType: 'warning',
+    notes: 'Perlu pengingat untuk sholat subuh tepat waktu.'
+  },
+  {
+    id: 's4',
+    no: 5,
+    name: 'Khalisa Putri',
+    nisn: '008924',
+    pin: '1234',
+    avatar: '🧕🏼',
+    photoUrl: '',
+    gender: 'female',
+    classId: 'c-2a',
+    className: 'Kelas 2A',
+    consistency: 50,
+    longestStreak: 3,
+    currentStreak: 3,
+    totalStars: 110,
+    status: 'Perlu Semangat',
+    statusType: 'danger',
+    notes: 'Sudah mulai terbiasa berdoa sebelum tidur.'
+  },
+  {
+    id: 's5',
+    no: 6,
+    name: 'Raihan Aditya',
+    nisn: '008925',
+    pin: '1234',
+    avatar: '👦🏻',
+    photoUrl: '',
+    gender: 'male',
+    classId: 'c-2a',
+    className: 'Kelas 2A',
+    consistency: 35,
+    longestStreak: 2,
+    currentStreak: 2,
+    totalStars: 80,
+    status: 'Perlu Semangat',
+    statusType: 'danger',
+    notes: 'Perlu bimbingan bersama orang tua di rumah.'
+  },
+  {
+    id: 's6',
+    no: 7,
+    name: 'Bilqis Nayla',
+    nisn: '008926',
+    pin: '1234',
+    avatar: '🧕🏻',
+    photoUrl: '',
+    gender: 'female',
+    classId: 'c-1a',
+    className: 'Kelas 1A',
+    consistency: 90,
+    longestStreak: 10,
+    currentStreak: 10,
+    totalStars: 230,
+    status: 'Sangat Konsisten',
+    statusType: 'success',
+    notes: 'Hafalan juz 30 lancar dan mutqin.'
+  }
+];
+
+export const CURRENT_STUDENT = {
+  id: 's-arman',
+  name: 'Adek Arman',
+  pin: '1234',
+  avatar: '👦🏻',
+  photoUrl: '',
+  greeting: 'Assalamu\'alaikum, Adek Arman 👋',
+  subtitle: 'Semangat jadi anak shalih hari ini!',
+  totalStars: 320,
+  streak: 7,
+  weeklyCompleted: 28,
+  weeklyTarget: 35,
+  weeklyTotalHabits: 32,
+  dateFormatted: 'Sabtu, 24 Mei 2025'
+};
+
+export const INITIAL_HABITS = [
+  {
+    id: 'h1',
+    title: 'Sholat Subuh',
+    description: 'Jangan lupa sholat Subuh ya!',
+    icon: 'mosque_subuh',
+    category: 'ibadah',
+    completed: true,
+    time: '04:45 WIB',
+    stars: 10,
+    isActive: true
+  },
+  {
+    id: 'h2',
+    title: 'Sholat Dzuhur',
+    description: 'Sholat tepat waktu, hati tenang',
+    icon: 'mosque_dzuhur',
+    category: 'ibadah',
+    completed: true,
+    time: '12:05 WIB',
+    stars: 10,
+    isActive: true
+  },
+  {
+    id: 'h3',
+    title: 'Sholat Maghrib',
+    description: 'Jangan lupa sholat Maghrib ya!',
+    icon: 'mosque_maghrib',
+    category: 'ibadah',
+    completed: true,
+    time: '18:00 WIB',
+    stars: 10,
+    isActive: true
+  },
+  {
+    id: 'h4',
+    title: 'Mengaji',
+    description: 'Baca Al-Qur\'an setiap hari',
+    icon: 'quran',
+    category: 'ibadah',
+    completed: true,
+    time: '18:30 WIB',
+    stars: 10,
+    isActive: true
+  },
+  {
+    id: 'h5',
+    title: 'Doa Sebelum Tidur',
+    description: 'Berdoa sebelum tidur, yuk!',
+    icon: 'moon_sleep',
+    category: 'akhlak',
+    completed: false,
+    time: '20:30 WIB',
+    stars: 10,
+    isActive: true
+  }
+];
+
+export const BADGES_LIST = [
+  {
+    id: 'b1',
+    title: 'Bintang Rajin Sholat',
+    description: 'Mengerjakan sholat 5 waktu tepat waktu selama 7 hari berturut-turut.',
+    isUnlocked: true,
+    earnedDate: '15 Mei 2025',
+    iconType: 'gold_mosque',
+    statusText: 'Diperoleh',
+    progressText: 'Tercapai',
+    requiredStars: 50,
+    earnersCount: 18
+  },
+  {
+    id: 'b2',
+    title: 'Bintang Mengaji',
+    description: 'Rutin membaca Al-Qur\'an atau Iqro setiap hari tanpa terlewat.',
+    isUnlocked: true,
+    earnedDate: '18 Mei 2025',
+    iconType: 'gold_quran',
+    statusText: 'Diperoleh',
+    progressText: 'Tercapai',
+    requiredStars: 100,
+    earnersCount: 15
+  },
+  {
+    id: 'b3',
+    title: 'Bintang Doa Malam',
+    description: 'Selalu membaca doa sebelum tidur dan ayat kursi di malam hari.',
+    isUnlocked: true,
+    earnedDate: '20 Mei 2025',
+    iconType: 'gold_moon',
+    statusText: 'Diperoleh',
+    progressText: 'Tercapai',
+    requiredStars: 150,
+    earnersCount: 12
+  },
+  {
+    id: 'b4',
+    title: 'Bintang Sholat 5 Waktu',
+    description: 'Menyelesaikan seluruh shalat fardhu dengan penuh kesadaran.',
+    isUnlocked: true,
+    earnedDate: '22 Mei 2025',
+    iconType: 'gold_sun',
+    statusText: 'Diperoleh',
+    progressText: 'Tercapai',
+    requiredStars: 200,
+    earnersCount: 9
+  },
+  {
+    id: 'b5',
+    title: 'Bintang Berdoa',
+    description: 'Terbiasa membaca doa makan, keluar rumah, dan aktivitas harian.',
+    isUnlocked: true,
+    earnedDate: '24 Mei 2025',
+    iconType: 'gold_hands',
+    statusText: 'Diperoleh',
+    progressText: 'Tercapai',
+    requiredStars: 250,
+    earnersCount: 7
+  },
+  {
+    id: 'b6',
+    title: 'Bintang Berbagi',
+    description: 'Kumpulkan 500 bintang lagi untuk membuka lencana kedermawanan ini.',
+    isUnlocked: false,
+    currentProgress: 320,
+    requiredStars: 500,
+    iconType: 'silver_sharing',
+    statusText: 'Terkunci',
+    earnersCount: 3
+  },
+  {
+    id: 'b7',
+    title: 'Bintang Disiplin',
+    description: 'Kumpulkan 800 bintang lagi untuk membuka lencana kedisiplinan tinggi.',
+    isUnlocked: false,
+    currentProgress: 320,
+    requiredStars: 800,
+    iconType: 'silver_trophy',
+    statusText: 'Terkunci',
+    earnersCount: 1
+  },
+  {
+    id: 'b8',
+    title: 'Bintang Konsisten',
+    description: 'Kumpulkan 1000 bintang lagi untuk membuktikan ketekunan tanpa henti.',
+    isUnlocked: false,
+    currentProgress: 320,
+    requiredStars: 1000,
+    iconType: 'silver_calendar',
+    statusText: 'Terkunci',
+    earnersCount: 0
+  },
+  {
+    id: 'b9',
+    title: 'Bintang Istimewa',
+    description: 'Kumpulkan 1500 bintang lagi untuk meraih bintang keagungan sejati.',
+    isUnlocked: false,
+    currentProgress: 320,
+    requiredStars: 1500,
+    iconType: 'silver_star',
+    statusText: 'Terkunci',
+    earnersCount: 0
+  }
+];
+
+export const INITIAL_TESTIMONIALS = [
+  {
+    id: 't1',
+    name: 'Bunda Aisyah',
+    city: 'Jakarta',
+    avatar: '🧕🏻',
+    photoUrl: '',
+    quote: 'Alhamdulillah, anak saya jadi lebih semangat shalat dan membaca Al-Qur\'an setiap hari tanpa perlu disuruh berulang-ulang sejak pakai Bintangku.',
+    rating: 5
+  },
+  {
+    id: 't2',
+    name: 'Ayah Ridwan',
+    city: 'Bandung',
+    avatar: '🧔🏻',
+    photoUrl: '',
+    quote: 'Aplikasi ini sangat membantu. Fitur toples bintangnya menarik dan anak-anak jadi lebih disiplin dan antusias dalam beribadah sehari-hari.',
+    rating: 5
+  },
+  {
+    id: 't3',
+    name: 'Bunda Siti',
+    city: 'Surabaya',
+    avatar: '🧕🏼',
+    photoUrl: '',
+    quote: 'Desainnya lucu, mudah digunakan, dan yang terpenting sarat nilai islami. Anak saya suka sekali mengumpulkan lencana setiap minggunya!',
+    rating: 5
+  }
+];
+
+export const INITIAL_MESSAGES = [
+  {
+    id: 'm1',
+    studentId: 's-arman',
+    studentName: 'Adek Arman',
+    date: '24 Mei 2025',
+    time: '08:30 WIB',
+    content: 'Barakallah Adek Arman! Ustadzah bangga hari ini sholat Subuh dan mengaji tepat waktu. Terus istiqomah ya nak ✨',
+    category: 'Apresiasi'
+  },
+  {
+    id: 'm2',
+    studentId: 's1',
+    studentName: 'Ahmad Zaki',
+    date: '23 Mei 2025',
+    time: '16:00 WIB',
+    content: 'Alhamdulillah Zaki sudah 12 hari berturut-turut menjaga sholat fardhu di masjid. Pertahankan ya nak!',
+    category: 'Motivasi'
+  },
+  {
+    id: 'm3',
+    studentId: 's2',
+    studentName: 'Aisyah Humaira',
+    date: '22 Mei 2025',
+    time: '19:15 WIB',
+    content: 'MasyaAllah bacaan surah An-Naba ananda Aisyah sangat tartil. Jangan lupa istirahat yang cukup setelah belajar.',
+    category: 'Tahfidz'
+  }
+];
