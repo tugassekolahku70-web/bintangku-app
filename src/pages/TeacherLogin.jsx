@@ -276,9 +276,6 @@ export default function TeacherLogin({ setCurrentRoute }) {
                   />
                 ))}
               </div>
-              <p style={{ textAlign: 'center', fontSize: '0.74rem', color: '#94A3B8' }}>
-                PIN bawaan demo: <strong>{settings?.teacherPin || '1234'}</strong>
-              </p>
             </div>
 
             {loginError && (
@@ -441,7 +438,7 @@ export default function TeacherLogin({ setCurrentRoute }) {
               color: '#1D4ED8',
               fontWeight: 600
             }}>
-              📩 Simulasi Kode OTP Masuk: <span style={{ fontSize: '1.1rem', letterSpacing: 3, color: 'var(--primary-700)' }}>{generatedOtpDisplay || '7890'}</span>
+              📩 Kode Verifikasi OTP Masuk: <span style={{ fontSize: '1.1rem', letterSpacing: 3, color: 'var(--primary-700)' }}>{generatedOtpDisplay || '7890'}</span>
             </div>
 
             <form onSubmit={handleVerifyOtpSubmit}>

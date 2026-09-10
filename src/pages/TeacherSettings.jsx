@@ -827,7 +827,7 @@ export default function TeacherSettings({ currentRoute, setCurrentRoute }) {
               color: '#1D4ED8',
               fontWeight: 600
             }}>
-              📩 Simulasi Kode OTP: <span style={{ fontSize: '1.1rem', letterSpacing: 3, color: 'var(--primary-700)' }}>{generatedOtpDisplay || '7890'}</span>
+              📩 Kode Verifikasi OTP: <span style={{ fontSize: '1.1rem', letterSpacing: 3, color: 'var(--primary-700)' }}>{generatedOtpDisplay || '7890'}</span>
             </div>
 
             <form onSubmit={handleConfirmPinChangeOtp}>
