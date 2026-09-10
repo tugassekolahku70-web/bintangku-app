@@ -70,7 +70,6 @@ export default function TeacherSettings({ currentRoute, setCurrentRoute }) {
   // Security & PIN Change State
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otpCode, setOtpCode] = useState('');
-  const [generatedOtpDisplay, setGeneratedOtpDisplay] = useState('');
   const [newTeacherPinInput, setNewTeacherPinInput] = useState('');
   const [pinChangeError, setPinChangeError] = useState('');
   const [pinChangeSuccess, setPinChangeSuccess] = useState(false);
@@ -133,9 +132,8 @@ export default function TeacherSettings({ currentRoute, setCurrentRoute }) {
     setTimeout(() => setSavedNotice(false), 3000);
   };
 
-  const handleRequestPinChangeOtp = () => {
-    const res = requestTeacherOtp(formData.teacherEmail || 'desiana@bintangku.id');
-    setGeneratedOtpDisplay(res.otp);
+  const handleRequestPinChangeOtp = async () => {
+    await requestTeacherOtp(formData.teacherEmail || 'desiana@bintangku.id', formData.teacherName || 'Pendidik', 'Pengubahan PIN Guru');
     setOtpCode('');
     setNewTeacherPinInput('');
     setPinChangeError('');
@@ -814,20 +812,29 @@ export default function TeacherSettings({ currentRoute, setCurrentRoute }) {
             </h3>
             
             <p style={{ fontSize: '0.85rem', color: '#64748B', lineHeight: 1.5, marginBottom: 14 }}>
-              Kode OTP telah dikirimkan ke <strong>{formData.teacherEmail || 'desiana@bintangku.id'}</strong>
+              Kode OTP rahasia telah dikirimkan ke <strong>{formData.teacherEmail || 'desiana@bintangku.id'}</strong>
             </p>
 
             <div style={{
-              background: '#EFF6FF',
-              border: '1px solid #BFDBFE',
-              borderRadius: 12,
-              padding: '10px 14px',
+              background: '#F0FDF4',
+              border: '1px solid #BBF7D0',
+              borderRadius: 14,
+              padding: '12px 14px',
               marginBottom: 18,
               fontSize: '0.82rem',
-              color: '#1D4ED8',
-              fontWeight: 600
+              color: '#166534',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              textAlign: 'left'
             }}>
-              📩 Kode Verifikasi OTP: <span style={{ fontSize: '1.1rem', letterSpacing: 3, color: 'var(--primary-700)' }}>{generatedOtpDisplay || '7890'}</span>
+              <Mail size={22} color="#16A34A" style={{ flexShrink: 0 }} />
+              <div>
+                <strong style={{ display: 'block', fontSize: '0.85rem' }}>Email Terkirim Langsung</strong>
+                <span style={{ fontSize: '0.78rem', color: '#15803D' }}>
+                  Silakan periksa <strong>Kotak Masuk</strong> atau folder <strong>Spam</strong> email Anda untuk melihat kode OTP rahasia.
+                </span>
+              </div>
             </div>
 
             <form onSubmit={handleConfirmPinChangeOtp}>

@@ -33,6 +33,7 @@ import {
 } from '../lib/mockData';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { triggerStarConfetti } from '../components/StarConfetti';
+import { sendOtpEmail } from '../lib/emailService';
 
 const AppContext = createContext();
 
@@ -147,19 +148,26 @@ export function AppProvider({ children }) {
     setIsTeacherLoggedIn(false);
   };
 
-  const requestTeacherOtp = (email) => {
+  const requestTeacherOtp = async (email, name = 'Pendidik', purpose = 'Verifikasi Akun') => {
     const generated = Math.floor(1000 + Math.random() * 9000).toString();
     setCurrentOtpCode(generated);
+
+    // Kirim email nyata ke alamat email pengguna
+    try {
+      await sendOtpEmail({ email, otp: generated, name, purpose });
+    } catch (err) {
+      console.warn('Gagal mengirimkan email OTP:', err);
+    }
+
     return {
       success: true,
-      otp: generated,
-      message: `Kode OTP verifikasi telah dikirim ke ${email}: [ ${generated} ]`
+      message: `Kode OTP verifikasi telah dikirimkan ke email ${email}.`
     };
   };
 
   const registerTeacherWithOtp = async ({ name, schoolName, email, pin, otp }) => {
-    if (otp !== currentOtpCode && otp !== '7890') {
-      return { success: false, message: 'Kode OTP yang Anda masukkan salah atau kadaluarsa.' };
+    if (otp !== currentOtpCode) {
+      return { success: false, message: 'Kode OTP yang Anda masukkan salah atau kadaluarsa. Silakan periksa kembali email Anda.' };
     }
 
     // Save to registered teachers list
@@ -195,7 +203,7 @@ export function AppProvider({ children }) {
   };
 
   const updateTeacherPinWithOtp = async (otp, newPin) => {
-    if (otp !== currentOtpCode && otp !== '7890') {
+    if (otp !== currentOtpCode) {
       return { success: false, message: 'Kode OTP tidak sesuai. Silakan minta kode baru.' };
     }
 

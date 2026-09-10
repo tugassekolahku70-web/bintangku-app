@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import MascotStar from '../components/MascotStar';
 import { useApp } from '../context/AppContext';
-import { ArrowLeft, ShieldCheck, Mail, Lock, School, User, KeyRound, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, Mail, Lock, School, User, KeyRound, CheckCircle2, AlertCircle, RefreshCw } from 'lucide-react';
 import { triggerStarConfetti } from '../components/StarConfetti';
 
 export default function TeacherLogin({ setCurrentRoute }) {
@@ -30,11 +30,20 @@ export default function TeacherLogin({ setCurrentRoute }) {
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otpPurpose, setOtpPurpose] = useState('register'); // 'register' | 'forgot_pin'
   const [otpInput, setOtpInput] = useState('');
-  const [generatedOtpDisplay, setGeneratedOtpDisplay] = useState('');
   const [otpError, setOtpError] = useState('');
   const [newResetPin, setNewResetPin] = useState('');
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
 
   const pinRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+
+  useEffect(() => {
+    let timer;
+    if (resendCooldown > 0) {
+      timer = setTimeout(() => setResendCooldown(c => c - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [resendCooldown]);
 
   const handlePinChange = (index, value) => {
     if (value.length > 1) value = value.slice(-1);
@@ -64,25 +73,38 @@ export default function TeacherLogin({ setCurrentRoute }) {
     }
   };
 
-  const handleStartRegister = (e) => {
+  const handleStartRegister = async (e) => {
     e.preventDefault();
     if (!regName.trim() || !regEmail.trim()) return;
 
-    const res = requestTeacherOtp(regEmail);
-    setGeneratedOtpDisplay(res.otp);
+    setSendingOtp(true);
+    await requestTeacherOtp(regEmail, regName, 'Pendaftaran Akun Guru Baru');
+    setSendingOtp(false);
+    setResendCooldown(60);
     setOtpPurpose('register');
     setOtpInput('');
     setOtpError('');
     setShowOtpModal(true);
   };
 
-  const handleStartForgotPin = () => {
-    const res = requestTeacherOtp(loginEmail);
-    setGeneratedOtpDisplay(res.otp);
+  const handleStartForgotPin = async () => {
+    setSendingOtp(true);
+    await requestTeacherOtp(loginEmail, 'Pendidik', 'Pengaturan Ulang Kode PIN');
+    setSendingOtp(false);
+    setResendCooldown(60);
     setOtpPurpose('forgot_pin');
     setOtpInput('');
     setOtpError('');
     setShowOtpModal(true);
+  };
+
+  const handleResendOtp = async () => {
+    if (resendCooldown > 0) return;
+    const targetEmail = otpPurpose === 'register' ? regEmail : loginEmail;
+    setSendingOtp(true);
+    await requestTeacherOtp(targetEmail, regName || 'Pendidik', otpPurpose === 'register' ? 'Pendaftaran Akun Guru' : 'Reset Kode PIN');
+    setSendingOtp(false);
+    setResendCooldown(60);
   };
 
   const handleVerifyOtpSubmit = async (e) => {
@@ -424,21 +446,30 @@ export default function TeacherLogin({ setCurrentRoute }) {
             </h3>
             
             <p style={{ fontSize: '0.86rem', color: '#64748B', lineHeight: 1.5, marginBottom: 14 }}>
-              Kode OTP telah dikirimkan ke email <strong>{otpPurpose === 'register' ? regEmail : loginEmail}</strong>
+              Kode OTP rahasia telah dikirimkan ke email <strong>{otpPurpose === 'register' ? regEmail : loginEmail}</strong>
             </p>
 
-            {/* Simulated Email Inbox Alert */}
+            {/* Privacy Email Confirmation Notice */}
             <div style={{
-              background: '#EFF6FF',
-              border: '1px solid #BFDBFE',
+              background: '#F0FDF4',
+              border: '1px solid #BBF7D0',
               borderRadius: 14,
-              padding: '10px 14px',
+              padding: '12px 14px',
               marginBottom: 20,
               fontSize: '0.82rem',
-              color: '#1D4ED8',
-              fontWeight: 600
+              color: '#166534',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              textAlign: 'left'
             }}>
-              📩 Kode Verifikasi OTP Masuk: <span style={{ fontSize: '1.1rem', letterSpacing: 3, color: 'var(--primary-700)' }}>{generatedOtpDisplay || '7890'}</span>
+              <Mail size={22} color="#16A34A" style={{ flexShrink: 0 }} />
+              <div>
+                <strong style={{ display: 'block', fontSize: '0.85rem' }}>Email Terkirim Langsung</strong>
+                <span style={{ fontSize: '0.78rem', color: '#15803D' }}>
+                  Silakan periksa <strong>Kotak Masuk</strong> atau folder <strong>Spam</strong> pada email Anda untuk melihat 4 digit kode OTP.
+                </span>
+              </div>
             </div>
 
             <form onSubmit={handleVerifyOtpSubmit}>
@@ -491,7 +522,7 @@ export default function TeacherLogin({ setCurrentRoute }) {
                 </div>
               )}
 
-              <div style={{ display: 'flex', gap: 10 }}>
+              <div style={{ display: 'flex', gap: 10, marginBottom: 12 }}>
                 <button 
                   type="button" 
                   className="btn-outline" 
@@ -506,6 +537,26 @@ export default function TeacherLogin({ setCurrentRoute }) {
                   style={{ flex: 1, padding: 12 }}
                 >
                   Verifikasi OTP
+                </button>
+              </div>
+
+              {/* Resend OTP Cooldown */}
+              <div style={{ textAlign: 'center', marginTop: 8 }}>
+                <button
+                  type="button"
+                  onClick={handleResendOtp}
+                  disabled={resendCooldown > 0 || sendingOtp}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: resendCooldown > 0 ? '#94A3B8' : '#2563EB',
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    cursor: resendCooldown > 0 ? 'not-allowed' : 'pointer',
+                    textDecoration: resendCooldown > 0 ? 'none' : 'underline'
+                  }}
+                >
+                  {sendingOtp ? 'Mengirim ulang...' : resendCooldown > 0 ? `Kirim ulang kode dalam ${resendCooldown}s` : 'Belum terima email? Kirim Ulang OTP'}
                 </button>
               </div>
             </form>
